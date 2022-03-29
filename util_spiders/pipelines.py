@@ -6,8 +6,12 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+from util_spiders.items import FileItem
 
 
-class UtilSpidersPipeline:
+class FileItemPipeline:
     def process_item(self, item, spider):
+        if isinstance(item, FileItem):
+            with open(item['path'], 'wb') as f:
+                f.write(item['context'])
         return item
